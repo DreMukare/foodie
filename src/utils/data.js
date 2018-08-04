@@ -29,6 +29,12 @@ export default {
       name: "Chips",
       quantity: 0,
       price: 80
+    },
+    {
+      id: 6,
+      name: "Peas",
+      quantity: 5,
+      price: 40
     }
   ]
 };

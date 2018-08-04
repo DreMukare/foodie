@@ -1,5 +1,15 @@
 :root {
+	/* COLORS VARIABLES */
 	--black: #000000;
+	--grey: #dddddd;
+
+	/* SIZING VARIABLES */
+	--r1\/8: 0.125rem;
+	--r1\/4: 0.25rem;
+	--r1\/2: 0.5rem;
+	--r3\/4: 0.75rem;
+	--r1: 1rem;
+	--r2: 2rem;
 }
 
 * {
@@ -59,8 +69,69 @@ table {
 /* ****************************** */
 html, body {
   height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-table, th, td {
+/* TABLE STYLING */
+table {
 	border: 1px solid var(--black);
+}
+
+tr {
+	height: var(--r2);
+}
+
+th, td {
+	padding: var(--r1\/2);
+}
+
+th {
+	font-weight: bold;
+	text-align: left;
+}
+
+td {
+	border-top: 1px solid var(--grey);
+}
+
+/* ***********LAYOUT****************** */
+#root, .app {
+	height: 100%;
+}
+
+.app {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.title {
+	margin: var(--r1\/2);
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	padding: var(--r1\/2);
+	max-width: 48%;
+}
+
+.menu_button-group {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.menu_button-group > button {
+	margin: var(--r1);
+	height: var(--r2);
+	width: 8rem;
+	font-family: inherit;
+}
+
+.order {
+	padding: var(--r1\/2);
+}
+
+.order > table {
+	width: 24rem;
 }
