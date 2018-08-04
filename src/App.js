@@ -4,7 +4,8 @@ import { MockDB, normalize } from "./utils";
 
 const buttonMap = props => ({
   ...props,
-  label: `${props.name} ${props.quantity}`
+  label: `${props.name} ${props.quantity}`,
+  [props.quantity < 1 && "disabled"]: true
 });
 
 const reduceStock = foodData => ({
