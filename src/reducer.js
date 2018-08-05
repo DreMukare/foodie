@@ -1,4 +1,4 @@
-const reducer = (state, { type, payload }) => {
+const reducer = (state, { type, payload = {} }) => {
   const { stock, order } = state;
   const { id } = payload;
   const stockData = stock[id];
@@ -57,6 +57,19 @@ const reducer = (state, { type, payload }) => {
             }
           }
         }
+      };
+    case "FETCH_MEALS_REQUEST":
+      return { ...state, async: { ...state.async, fetching: true } };
+    case "FETCH_MEALS_FULFILLED":
+      return {
+        ...state,
+        async: { ...state.async, fetching: false, success: true },
+        stock: { ...stock, ...payload.data }
+      };
+    case "FETCH_MEALS_REJECTED":
+      return {
+        ...state,
+        async: { ...state.async, fetching: false, error: payload.error }
       };
     default:
       return state;

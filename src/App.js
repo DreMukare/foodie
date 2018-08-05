@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 import { FoodMenu, FoodOrder } from "./components";
-import { MockDB, normalize } from "./utils";
 import reducer from "./reducer";
+import { dal } from "./database";
+
+const placeholderStock = Array(6)
+  .fill({ name: "Loading...", quantity: "" })
+  .reduce((a, c, i) => {
+    a[i + 1] = c;
+    return a;
+  }, {});
 
 class App extends Component {
   state = {
     stock: {},
-    order: {}
+    order: {},
+    async: {
+      fetching: false,
+      success: false,
+      error: false
+    }
   };
 
   componentDidMount() {
-    const db = new MockDB();
-    db.table("foods")
-      .select()
-      .then(data => {
-        const normalizedData = normalize(data);
-        this.setState({ stock: normalizedData });
-      });
+    dal.fetchMealsThunk(this.dispatch);
   }
 
   dispatch = action => {
@@ -24,13 +30,16 @@ class App extends Component {
   };
 
   render() {
-    const stock = Object.values(this.state.stock);
+    const { fetching } = this.state.async;
+    const stockData = fetching ? placeholderStock : this.state.stock;
+    const stock = Object.values(stockData);
     const order = Object.values(this.state.order);
+
     return (
-      <div className="app">
+      <React.Fragment>
         <FoodMenu stockData={stock} dispatch={this.dispatch} />
         <FoodOrder orderData={order} dispatch={this.dispatch} />
-      </div>
+      </React.Fragment>
     );
   }
 }

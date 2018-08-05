@@ -3,6 +3,7 @@
 	flex-direction: column;
 	padding: var(--r1\/2);
 	max-width: 48%;
+	min-width: 48%;
 }
 
 .menu_button-group {

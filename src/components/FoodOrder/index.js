@@ -27,32 +27,28 @@ class FoodOrder extends Component {
     return (
       <div className="order">
         <div className="title">
-          <h2>Order</h2>
+          <h2>Food Order</h2>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Food</th>
-              <th>Price</th>
-              <th>Quantity</th>
-            </tr>
-          </thead>
-          <tbody>
-            <OrderTableCell order={order} onClick={this.handleClick} />
-            <tr>
-              <td>Total</td>
-              <td>
-                {order.reduce((totalPrice, food) => totalPrice + food.price, 0)}
-              </td>
-              <td>
-                {order.reduce(
-                  (totalQuantity, food) => totalQuantity + food.quantity,
-                  0
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Food</th>
+                <th>Price</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <OrderTableCell order={order} onClick={this.handleClick} />
+            </tbody>
+          </table>
+        </div>
+        <div className="total">
+          <p>Total </p>
+          <span>
+            {order.reduce((totalPrice, food) => totalPrice + food.price, 0)}
+          </span>
+        </div>
       </div>
     );
   }

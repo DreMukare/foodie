@@ -95,11 +95,8 @@ td {
 }
 
 /* ***********LAYOUT*********** */
-#root, .app {
+#root {
 	height: 100%;
-}
-
-.app {
 	display: flex;
 	flex-wrap: wrap;
 }
