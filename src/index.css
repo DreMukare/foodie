@@ -94,7 +94,7 @@ td {
 	border-top: 1px solid var(--grey);
 }
 
-/* ***********LAYOUT****************** */
+/* ***********LAYOUT*********** */
 #root, .app {
 	height: 100%;
 }
@@ -106,32 +106,4 @@ td {
 
 .title {
 	margin: var(--r1\/2);
-}
-
-.menu {
-	display: flex;
-	flex-direction: column;
-	padding: var(--r1\/2);
-	max-width: 48%;
-}
-
-.menu_button-group {
-	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-}
-
-.menu_button-group > button {
-	margin: var(--r1);
-	height: var(--r2);
-	width: 8rem;
-	font-family: inherit;
-}
-
-.order {
-	padding: var(--r1\/2);
-}
-
-.order > table {
-	width: 24rem;
 }

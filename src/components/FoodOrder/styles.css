@@ -1,0 +1,7 @@
+.order {
+	padding: var(--r1\/2);
+}
+
+.order > table {
+	width: 24rem;
+}

@@ -1,0 +1,19 @@
+.menu {
+	display: flex;
+	flex-direction: column;
+	padding: var(--r1\/2);
+	max-width: 48%;
+}
+
+.menu_button-group {
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.menu_button-group > button {
+	margin: var(--r1);
+	height: var(--r2);
+	width: 8rem;
+	font-family: inherit;
+}
