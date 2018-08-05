@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { FoodMenu, FoodOrder } from "./components";
+import { Router } from "@reach/router";
 import reducer from "./reducer";
 import { dal } from "./database";
+import { HomePage, LoginPage } from "./pages";
 
 const placeholderStock = Array(6)
   .fill({ name: "Loading...", quantity: "" })
@@ -36,10 +37,15 @@ class App extends Component {
     const order = Object.values(this.state.order);
 
     return (
-      <React.Fragment>
-        <FoodMenu stockData={stock} dispatch={this.dispatch} />
-        <FoodOrder orderData={order} dispatch={this.dispatch} />
-      </React.Fragment>
+      <Router>
+        <HomePage
+          path="/"
+          orderData={order}
+          stockData={stock}
+          dispatch={this.dispatch}
+        />
+        <LoginPage path="login" dispatch={this.dispatch} />
+      </Router>
     );
   }
 }

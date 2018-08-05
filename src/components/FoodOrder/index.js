@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import TableCell from "./TableCell";
 import MapArray from "../MapArray";
 import "./styles.css";
+import Button from "../Button";
 
 // Localized component because I only need it here
 const OrderTableCell = props => (
@@ -48,6 +49,9 @@ class FoodOrder extends Component {
           <span>
             {order.reduce((totalPrice, food) => totalPrice + food.price, 0)}
           </span>
+        </div>
+        <div className="print">
+          <Button label="Print Receipt" />
         </div>
       </div>
     );

@@ -71,6 +71,11 @@ const reducer = (state, { type, payload = {} }) => {
         ...state,
         async: { ...state.async, fetching: false, error: payload.error }
       };
+    case "SET_ADMIN":
+      return {
+        ...state,
+        isAdmin: true
+      };
     default:
       return state;
   }

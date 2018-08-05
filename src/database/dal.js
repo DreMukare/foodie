@@ -3,6 +3,13 @@ import { normalize } from "../utils";
 
 const fetchAll = tableName => db.table(tableName).toArray();
 
+const findOne = (tableName, query) =>
+  db
+    .table(tableName)
+    .where(query.key)
+    .equals(query.value)
+    .toArray();
+
 const fetchMealsThunk = dispatch => {
   dispatch({ type: "FETCH_MEALS_REQUEST" });
   fetchAll("meals")
@@ -20,5 +27,6 @@ const fetchMealsThunk = dispatch => {
 
 export default {
   fetchAll,
+  findOne,
   fetchMealsThunk
 };
