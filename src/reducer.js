@@ -76,6 +76,11 @@ const reducer = (state, { type, payload = {} }) => {
         ...state,
         isAdmin: true
       };
+    case "LOG_OUT":
+      return {
+        ...state,
+        isAdmin: undefined
+      };
     default:
       return state;
   }

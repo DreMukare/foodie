@@ -42,6 +42,7 @@ class App extends Component {
           path="/"
           orderData={order}
           stockData={stock}
+          isLoggedIn={this.state.isAdmin || false}
           dispatch={this.dispatch}
         />
         <LoginPage path="login" dispatch={this.dispatch} />

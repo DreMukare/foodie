@@ -6,14 +6,15 @@ const Home = props => (
   <React.Fragment>
     <FoodMenu stockData={props.stockData} dispatch={props.dispatch} />
     <FoodOrder orderData={props.orderData} dispatch={props.dispatch} />
-    <AdminPanel />
+    <AdminPanel isLoggedIn={props.isLoggedIn} dispatch={props.dispatch} />
   </React.Fragment>
 );
 
 Home.propTypes = {
   stockData: PropTypes.array,
   orderData: PropTypes.array,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
+  isLoggedIn: PropTypes.bool
 };
 
 export default Home;
