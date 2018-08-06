@@ -33,6 +33,7 @@ class LoginPage extends Component {
               return setState({ invalidFormData: true });
             }
             this.props.dispatch({ type: "SET_ADMIN" });
+            this.props.navigate("/");
           });
         }
       })
