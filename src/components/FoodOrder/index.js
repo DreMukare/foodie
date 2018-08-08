@@ -4,66 +4,66 @@ import TableCell from "./TableCell";
 import MapArray from "../MapArray";
 import "./styles.css";
 import Button from "../Button";
-import dal from "../../database/dal";
+import { saveOrderThunk } from "../../thunk";
 
 // Localized component because I only need it here
 const OrderTableCell = props => (
-  <MapArray from={props.order} map={props.map}>
-    <TableCell onClick={props.onClick} />
-  </MapArray>
+	<MapArray from={props.order} map={props.map}>
+		<TableCell onClick={props.onClick} />
+	</MapArray>
 );
 
 class FoodOrder extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func,
-    orderData: PropTypes.array
-  };
+	static propTypes = {
+		dispatch: PropTypes.func,
+		orderData: PropTypes.array
+	};
 
-  handleClick = e => {
-    const foodId = e.target.id;
-    this.props.dispatch({ type: "REMOVE_ORDER", payload: { id: foodId } });
-  };
+	handleClick = e => {
+		const foodId = e.target.id;
+		this.props.dispatch({ type: "REMOVE_ORDER", payload: { id: foodId } });
+	};
 
-  handlePrintReceipt = e => {
-    const { dispatch, orderData } = this.props;
-    if (Object.keys(orderData).length > 0) {
-      dal.saveOrderThunk(dispatch, orderData);
-    }
-  };
+	handlePrintReceipt = e => {
+		const { dispatch, orderData } = this.props;
+		if (Object.keys(orderData).length > 0) {
+			saveOrderThunk(dispatch, orderData);
+		}
+	};
 
-  render() {
-    const order = this.props.orderData;
-    return (
-      <div className="order">
-        <div className="title">
-          <h2>Food Order</h2>
-        </div>
-        <div className="table">
-          <table>
-            <thead>
-              <tr>
-                <th>Food</th>
-                <th>Price</th>
-                <th>Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <OrderTableCell order={order} onClick={this.handleClick} />
-            </tbody>
-          </table>
-        </div>
-        <div className="total">
-          <p>Total </p>
-          <span>
-            {order.reduce((totalPrice, food) => totalPrice + food.price, 0)}
-          </span>
-        </div>
-        <div className="print">
-          <Button label="Print Receipt" onClick={this.handlePrintReceipt} />
-        </div>
-      </div>
-    );
-  }
+	render() {
+		const order = this.props.orderData;
+		return (
+			<div className="order">
+				<div className="title">
+					<h2>Food Order</h2>
+				</div>
+				<div className="table">
+					<table>
+						<thead>
+							<tr>
+								<th>Food</th>
+								<th>Price</th>
+								<th>Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<OrderTableCell order={order} onClick={this.handleClick} />
+						</tbody>
+					</table>
+				</div>
+				<div className="total">
+					<p>Total </p>
+					<span>
+						{order.reduce((totalPrice, food) => totalPrice + food.price, 0)}
+					</span>
+				</div>
+				<div className="print">
+					<Button label="Print Receipt" onClick={this.handlePrintReceipt} />
+				</div>
+			</div>
+		);
+	}
 }
 
 export default FoodOrder;
