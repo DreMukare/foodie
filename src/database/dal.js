@@ -4,6 +4,23 @@ const fetchAll = tableName => db.table(tableName).toArray();
 
 const insertOne = (tableName, data) => db.table(tableName).add(data);
 
+const upsert = (tableName, data, key) => {
+	const table = db.table(tableName);
+	if (Boolean(key)) {
+		return table
+			.where(key)
+			.equals(data[key])
+			.toArray()
+			.then(result => {
+				if (result.length > 0) {
+					return table.update(result[0].id, { ...data });
+				}
+				return table.put(data);
+			});
+	}
+	return table.put(data);
+};
+
 const find = (tableName, query) =>
 	db
 		.table(tableName)
@@ -33,5 +50,6 @@ export default {
 	findOne,
 	findOneAndUpdate,
 	insertOne,
-	updateOne
+	updateOne,
+	upsert
 };

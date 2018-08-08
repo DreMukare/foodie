@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Bcrypt from "bcryptjs";
-import { dal } from "../../database";
 import { Form } from "../../components";
+import { loginThunk } from "../../thunk";
 import "./styles.css";
 
 const formConfig = [
@@ -24,18 +23,12 @@ class LoginPage extends Component {
 		if (Object.keys(user).length < 1) {
 			return setState({ invalidFormData: true });
 		}
-		dal
-			.find("admins", { key: "username", value: user.username || "" })
-			.then(data => {
-				if (data.length > 0) {
-					Bcrypt.compare(user.password, data[0].password).then(success => {
-						if (!success) {
-							return setState({ invalidFormData: true });
-						}
-						this.props.dispatch({ type: "SET_ADMIN" });
-						this.props.navigate("/");
-					});
+		loginThunk(this.props.dispatch, user)
+			.then(success => {
+				if (success) {
+					this.props.navigate("/");
 				}
+				setState({ invalidFormData: true });
 			})
 			.catch(error => {
 				setState({ invalidFormData: true });

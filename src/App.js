@@ -39,7 +39,7 @@ class App extends Component {
 		return (
 			<Router>
 				<HomePage
-					path="/"
+					path="/*"
 					orderData={order}
 					stockData={stock}
 					isLoggedIn={this.state.isAdmin || false}
