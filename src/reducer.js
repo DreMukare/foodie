@@ -81,6 +81,11 @@ const reducer = (state, { type, payload = {} }) => {
         ...state,
         isAdmin: undefined
       };
+    case "SAVE_ORDER":
+      return {
+        ...state,
+        order: {}
+      };
     default:
       return state;
   }

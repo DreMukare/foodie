@@ -4,6 +4,7 @@ import TableCell from "./TableCell";
 import MapArray from "../MapArray";
 import "./styles.css";
 import Button from "../Button";
+import dal from "../../database/dal";
 
 // Localized component because I only need it here
 const OrderTableCell = props => (
@@ -21,6 +22,13 @@ class FoodOrder extends Component {
   handleClick = e => {
     const foodId = e.target.id;
     this.props.dispatch({ type: "REMOVE_ORDER", payload: { id: foodId } });
+  };
+
+  handlePrintReceipt = e => {
+    const { dispatch, orderData } = this.props;
+    if (Object.keys(orderData).length > 0) {
+      dal.saveOrderThunk(dispatch, orderData);
+    }
   };
 
   render() {
@@ -51,7 +59,7 @@ class FoodOrder extends Component {
           </span>
         </div>
         <div className="print">
-          <Button label="Print Receipt" />
+          <Button label="Print Receipt" onClick={this.handlePrintReceipt} />
         </div>
       </div>
     );
