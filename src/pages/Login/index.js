@@ -26,6 +26,7 @@ class LoginPage extends Component {
 		loginThunk(this.props.dispatch, user)
 			.then(success => {
 				if (success) {
+					sessionStorage.setItem("logged-in-admin", btoa(user.username));
 					this.props.navigate("/");
 				}
 				setState({ invalidFormData: true });

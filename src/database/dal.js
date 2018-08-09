@@ -1,8 +1,11 @@
 import db from "./db";
 
+const date = key => ({ [key]: Date.now() });
+
 const fetchAll = tableName => db.table(tableName).toArray();
 
-const insertOne = (tableName, data) => db.table(tableName).add(data);
+const insertOne = (tableName, data) =>
+	db.table(tableName).add({ ...data, ...date("created_at") });
 
 const upsert = (tableName, data, key) => {
 	const table = db.table(tableName);
@@ -13,12 +16,11 @@ const upsert = (tableName, data, key) => {
 			.toArray()
 			.then(result => {
 				if (result.length > 0) {
-					return table.update(result[0].id, { ...data });
+					return table.update(result[0].id, { ...data, ...date("updated_at") });
 				}
-				return table.put(data);
 			});
 	}
-	return table.put(data);
+	return table.put({ ...data, ...date("created_at") });
 };
 
 const find = (tableName, query) =>
@@ -31,7 +33,9 @@ const find = (tableName, query) =>
 const findOne = (tableName, key) => db.table(tableName).get(key);
 
 const updateOne = (tableName, query) =>
-	db.table(tableName).update(query.key, query.value);
+	db
+		.table(tableName)
+		.update(query.key, { ...query.value, ...date("updated_at") });
 
 const findOneAndUpdate = (tableName, query) => {
 	return findOne(tableName, query.key).then(entry => {

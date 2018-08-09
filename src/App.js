@@ -24,6 +24,11 @@ class App extends Component {
 
 	componentDidMount() {
 		fetchMealsThunk(this.dispatch);
+		const sessionKey = sessionStorage.getItem("logged-in-admin");
+		if (Boolean(sessionKey)) {
+			const isAdmin = atob(sessionKey) === "admin"; // FORGIVE ME FATHER FOR I HAVE SINNED.
+			this.setState(prevState => ({ ...prevState, isAdmin }));
+		}
 	}
 
 	dispatch = action => {

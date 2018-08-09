@@ -16,6 +16,7 @@ const adminMenuConfig = [
 	{
 		label: "Log out",
 		onClick: dispatch => e => {
+			sessionStorage.removeItem("logged-in-admin");
 			dispatch({ type: "LOG_OUT" });
 		}
 	}
