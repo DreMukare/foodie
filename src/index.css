@@ -129,6 +129,7 @@ button:focus {
 
 button:disabled {
 	border: 2px solid var(--grey);
+	cursor: not-allowed;
 }
 
 button:not(:disabled):hover {

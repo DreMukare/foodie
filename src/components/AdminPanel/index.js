@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Router, navigate } from "@reach/router";
-import "./styles.css";
 import AdminLogin from "./AdminLogin";
 import AdminMenu from "./AdminMenu";
 import RestockForm from "../RestockForm";
-import AdminView from "./AdminView";
+import ProtectedRoute from "../ProtectedRoute";
+import "./styles.css";
 
 const adminMenuConfig = [
 	{
@@ -13,6 +13,10 @@ const adminMenuConfig = [
 		onClick: dispatch => e => {
 			navigate("/restock-form");
 		}
+	},
+	{
+		label: "Sales Report",
+		onClick: dispatch => e => {}
 	},
 	{
 		label: "Log out",
@@ -30,25 +34,29 @@ class AdminPanel extends Component {
 	};
 
 	render() {
-		const isAdmin = this.props.isLoggedIn;
+		const { dispatch, isLoggedIn } = this.props;
 		return (
 			<aside className="navbar">
 				<div className="title">
 					<h2>Admin</h2>
 				</div>
 				<Router primary={false} className="form_admin">
-					<AdminView
-						isAdmin={isAdmin}
+					<ProtectedRoute
+						as="ul"
+						allow={isLoggedIn}
 						path="/"
 						protected={
-							<AdminMenu
-								dispatch={this.props.dispatch}
-								config={adminMenuConfig}
-							/>
+							<AdminMenu dispatch={dispatch} config={adminMenuConfig} />
 						}
-						default={<AdminLogin />}
+						fallback={<AdminLogin />}
 					/>
-					<RestockForm path="restock-form" dispatch={this.props.dispatch} />
+					<ProtectedRoute
+						as={isLoggedIn ? props => <React.Fragment {...props} /> : "ul"}
+						allow={isLoggedIn}
+						path="restock-form"
+						protected={<RestockForm dispatch={dispatch} />}
+						fallback={<AdminLogin />}
+					/>
 				</Router>
 			</aside>
 		);

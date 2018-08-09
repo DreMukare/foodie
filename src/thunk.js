@@ -46,8 +46,8 @@ const saveOrderThunk = (dispatch, order) => {
 		})
 		.then(saved => {
 			if (saved) {
-				for (const meal of Object.values(order)) {
-					dal.findOneAndUpdate("meals", {
+				return Object.values(order).map(meal => {
+					return dal.findOneAndUpdate("meals", {
 						key: meal.id,
 						value: entry => {
 							delete entry.id;
@@ -57,17 +57,24 @@ const saveOrderThunk = (dispatch, order) => {
 							};
 						}
 					});
-				}
-				return true;
+				});
 			}
-		});
+		})
+		.then(updateStatuses => Promise.all(updateStatuses))
+		.then(statuses =>
+			Array.prototype.reduce.call(
+				statuses,
+				(allStatuses, currentStatus) => allStatuses && currentStatus,
+				true
+			)
+		);
 };
 
 const restockThunk = (dispatch, mealData) => {
 	const formatted = {
 		...mealData,
-		quantity: parseInt(mealData.quantity, 10) || 0,
-		price: parseInt(mealData.price, 10) || 0,
+		quantity: parseInt(mealData.quantity, 10) || -1,
+		price: parseInt(mealData.price, 10) || -1,
 		type: Boolean(mealData.type) ? mealData.type.split(",") : -1
 	};
 	for (const key in formatted) {
