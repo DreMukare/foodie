@@ -4,7 +4,7 @@ import TableCell from "./TableCell";
 import MapArray from "../MapArray";
 import "./styles.css";
 import Button from "../Button";
-import { saveOrderThunk } from "../../thunk";
+import { saveOrderThunk, fetchMealsThunk } from "../../thunk";
 
 // Localized component because I only need it here
 const OrderTableCell = props => (
@@ -27,7 +27,21 @@ class FoodOrder extends Component {
 	handlePrintReceipt = e => {
 		const { dispatch, orderData } = this.props;
 		if (Object.keys(orderData).length > 0) {
-			saveOrderThunk(dispatch, orderData);
+			saveOrderThunk(dispatch, orderData).then(success => {
+				// WARNING: HERE BE DRAGONS
+				if (success) {
+					const delay = 20;
+					let timeoutId = setTimeout(() => {
+						fetchMealsThunk(dispatch);
+					}, delay);
+					let intervalId = setInterval(() => {
+						clearTimeout(timeoutId);
+						timeoutId = null;
+						clearInterval(intervalId);
+					}, delay);
+				}
+				//////////////////////////////////////////
+			});
 		}
 	};
 

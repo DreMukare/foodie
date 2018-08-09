@@ -5,6 +5,7 @@ import "./styles.css";
 import AdminLogin from "./AdminLogin";
 import AdminMenu from "./AdminMenu";
 import RestockForm from "../RestockForm";
+import AdminView from "./AdminView";
 
 const adminMenuConfig = [
 	{
@@ -35,20 +36,20 @@ class AdminPanel extends Component {
 				<div className="title">
 					<h2>Admin</h2>
 				</div>
-				<ul>
-					<Router primary={false}>
-						{isAdmin ? (
+				<Router primary={false} className="form_admin">
+					<AdminView
+						isAdmin={isAdmin}
+						path="/"
+						protected={
 							<AdminMenu
 								dispatch={this.props.dispatch}
 								config={adminMenuConfig}
-								path="/"
 							/>
-						) : (
-							<AdminLogin default />
-						)}
-						<RestockForm path="restock-form" dispatch={this.props.dispatch} />
-					</Router>
-				</ul>
+						}
+						default={<AdminLogin />}
+					/>
+					<RestockForm path="restock-form" dispatch={this.props.dispatch} />
+				</Router>
 			</aside>
 		);
 	}

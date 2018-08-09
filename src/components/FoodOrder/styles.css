@@ -5,6 +5,10 @@
 	flex-basis: 34%;
 }
 
+.order > .title {
+	margin-bottom: 1.375rem;
+}
+
 ::-webkit-scrollbar {
 	width: 0;
 }

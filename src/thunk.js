@@ -66,9 +66,15 @@ const saveOrderThunk = (dispatch, order) => {
 const restockThunk = (dispatch, mealData) => {
 	const formatted = {
 		...mealData,
-		quantity: parseInt(mealData.quantity, 10),
-		price: parseInt(mealData.price, 10)
+		quantity: parseInt(mealData.quantity, 10) || 0,
+		price: parseInt(mealData.price, 10) || 0,
+		type: Boolean(mealData.type) ? mealData.type.split(",") : -1
 	};
+	for (const key in formatted) {
+		if (formatted[key] < 0) {
+			delete formatted[key];
+		}
+	}
 	return dal.upsert("meals", formatted, "name").then(result => {
 		if (Boolean(result)) {
 			return fetchMealsThunk(dispatch);

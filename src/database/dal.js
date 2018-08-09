@@ -18,6 +18,7 @@ const upsert = (tableName, data, key) => {
 				if (result.length > 0) {
 					return table.update(result[0].id, { ...data, ...date("updated_at") });
 				}
+				return table.put({ ...data, ...date("created_at") });
 			});
 	}
 	return table.put({ ...data, ...date("created_at") });

@@ -12,11 +12,20 @@ const restockFormConfig = [
 	},
 	{
 		name: "quantity",
-		type: "number"
+		type: "number",
+		placeHolder: "0",
+		min: "0"
 	},
 	{
 		name: "price",
-		type: "number"
+		type: "number",
+		placeHolder: "0",
+		min: "0"
+	},
+	{
+		name: "type",
+		type: "text",
+		placeHolder: "Example: Lunch, Supper"
 	}
 ];
 
