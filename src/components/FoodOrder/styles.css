@@ -5,12 +5,19 @@
 	flex-basis: 34%;
 }
 
+::-webkit-scrollbar {
+	width: 0;
+}
+
 .table {
-	min-height: 40%;
+	flex-basis: 40%;
+	padding: var(--r1\/2);
+	overflow-y: scroll;
+	border: 1px solid var(--black);
 }
 
 .table > table {
-	width: 24rem;
+	width: 100%;
 }
 
 .total {

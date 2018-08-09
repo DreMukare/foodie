@@ -1,4 +1,4 @@
-import Bcrypt from "bcryptjs";
+import { compare } from "bcryptjs";
 import { dal } from "./database";
 import { normalize } from "./utils";
 
@@ -7,14 +7,12 @@ const loginThunk = (dispatch, loginData) => {
 		.find("admins", { key: "username", value: loginData.username || "" })
 		.then(data => {
 			if (data.length > 0) {
-				return Bcrypt.compare(loginData.password, data[0].password).then(
-					success => {
-						if (success) {
-							dispatch({ type: "SET_ADMIN" });
-						}
-						return success;
+				return compare(loginData.password, data[0].password).then(success => {
+					if (success) {
+						dispatch({ type: "SET_ADMIN" });
 					}
-				);
+					return success;
+				});
 			}
 		});
 };
