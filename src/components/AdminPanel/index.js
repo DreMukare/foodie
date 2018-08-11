@@ -16,7 +16,9 @@ const adminMenuConfig = [
 	},
 	{
 		label: "Sales Report",
-		onClick: dispatch => e => {}
+		onClick: dispatch => e => {
+			navigate("/sales-report");
+		}
 	},
 	{
 		label: "Log out",

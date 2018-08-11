@@ -4,7 +4,7 @@ import TableCell from "./TableCell";
 import MapArray from "../MapArray";
 import "./styles.css";
 import Button from "../Button";
-import { saveOrderThunk, fetchMealsThunk } from "../../thunk";
+import { saveOrderThunk, fetchMealsThunk, totalSalesThunk } from "../../thunk";
 
 // Localized component because I only need it here
 const OrderTableCell = props => (
@@ -33,6 +33,7 @@ class FoodOrder extends Component {
 					const delay = 20;
 					let timeoutId = setTimeout(() => {
 						fetchMealsThunk(dispatch);
+						totalSalesThunk(dispatch);
 					}, delay);
 					let intervalId = setInterval(() => {
 						clearTimeout(timeoutId);

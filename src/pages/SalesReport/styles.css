@@ -1,0 +1,79 @@
+.sales-report {
+  flex-basis: 100%;
+}
+
+.sales-report > .title {
+  flex-basis: 100%;
+}
+
+.statistics {
+  display: flex;
+  min-height: 50%;
+}
+
+.progress {
+  padding: var(--r1);
+  flex-basis: 50%;
+}
+
+.graphs {
+  flex-basis: 50%;
+  padding: var(--r1);
+}
+
+#stock-graph-axis {
+  margin: var(--r1);
+  border-left: 4px solid var(--onyx);
+  border-bottom: 4px solid var(--onyx);
+  height: 60%;
+  width: 92%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.bar {
+  border: 1px solid var(--raisin-black);
+  border-bottom: 0;
+  margin: 0 var(--r1\/4);
+  width: 10%;
+  /* writing-mode: vertical-rl; */
+  text-align: center;
+  padding: var(--r1\/4);
+  background-color: var(--white);
+}
+
+#stock-graph-key {
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--r1);
+}
+
+.key {
+  flex-basis: 30%;
+  display: flex;
+  margin: var(--r1\/4) 0;
+}
+
+.key > span {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 var(--r1\/4);
+}
+
+.numbers {
+  display: flex;
+  width: 14%;
+  border: 1px solid var(--raisin-black);
+  padding: var(--r1\/2);
+  margin: 0 var(--r2);
+}
+
+.numbers > label {
+  font-size: 1rem;
+}
+
+.numbers > p {
+  margin: var(--r1\/4);
+  font-size: 1.6rem;
+  font-weight: 600;
+}

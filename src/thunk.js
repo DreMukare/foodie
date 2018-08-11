@@ -18,7 +18,7 @@ const loginThunk = (dispatch, loginData) => {
 };
 
 const fetchMealsThunk = dispatch => {
-	dispatch({ type: "FETCH_MEALS_REQUEST" });
+	dispatch({ type: "FETCH_DATA_REQUEST" });
 	return dal
 		.fetchAll("meals")
 		.then(data => {
@@ -89,4 +89,37 @@ const restockThunk = (dispatch, mealData) => {
 	});
 };
 
-export { fetchMealsThunk, loginThunk, saveOrderThunk, restockThunk };
+const totalSalesThunk = dispatch => {
+	dispatch({ type: "FETCH_DATA_REQUEST" });
+	return dal.fetchAll("orders").then(array => {
+		const sales = array
+			.reduce((all, order) => {
+				return all.concat(
+					order.meals.map(({ name, price }) => ({
+						name,
+						total: price
+					}))
+				);
+			}, [])
+			.reduce((a, c) => {
+				if (Object.prototype.hasOwnProperty.call(a, c.name)) {
+					a[c.name] = { name: c.name, total: a[c.name].total + c.total };
+					return a;
+				}
+				a[c.name] = {
+					name: c.name,
+					total: c.total
+				};
+				return a;
+			}, {});
+		dispatch({ type: "FETCH_SALES_FULFILLED", payload: { data: sales } });
+	});
+};
+
+export {
+	fetchMealsThunk,
+	loginThunk,
+	saveOrderThunk,
+	restockThunk,
+	totalSalesThunk
+};
