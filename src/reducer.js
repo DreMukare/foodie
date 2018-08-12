@@ -92,6 +92,11 @@ const reducer = (state, { type, payload = {} }) => {
 				...state,
 				order: {}
 			};
+		case "APPLY_FILTER":
+			return {
+				...state,
+				filter: payload.data.type
+			};
 		default:
 			return state;
 	}

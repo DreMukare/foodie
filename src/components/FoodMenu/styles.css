@@ -12,3 +12,18 @@
 	width: 7.2rem;
 	font-family: inherit;
 }
+
+.with-filter {
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.food-sort > label {
+	padding: var(--r1\/4);
+}
+
+.food-sort > select{
+	border-color: var(--raisin-black);
+	width: 8rem;
+}

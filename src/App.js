@@ -22,7 +22,8 @@ class App extends Component {
 			fetching: false,
 			success: false,
 			error: false
-		}
+		},
+		filter: "All"
 	};
 
 	componentDidMount() {
@@ -45,8 +46,14 @@ class App extends Component {
 
 	render() {
 		const { fetching } = this.state.async;
+		const { filter } = this.state;
 		const stockData = fetching ? placeholderStock : this.state.stock;
-		const stock = Object.values(stockData);
+		const stock =
+			filter !== "All"
+				? Object.values(stockData).filter(meal =>
+						meal.type.some(type => type === this.state.filter)
+				  )
+				: Object.values(stockData);
 		const order = Object.values(this.state.order);
 		const sales = Object.values(this.state.sales);
 		const totalStock = stock.reduce((a, c) => {
